@@ -1,0 +1,61 @@
+Source of the original data: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+Original description: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Data Set Information:
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. 
+
+Check the README.txt file for further details about this dataset.
+
+
+Attribute Information:
+
+For each record in the dataset it is provided: 
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration. 
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
+
+The attached R Script (run_analysis.R) performs the following to clean up the data:
+
+1. Merges the training and test sets 
+-Imports the training data (subject, xtrain, ytrain) and test data (subject, xtest and ytest)
+-Assign column names
+-Combine the subject, xtrain and ytrain data
+-Combine the subject, xtest and ytest data
+-Combine train and test data to form final data.
+-Final data is a 10299 x 563 data frame
+-Reads file features.txt
+
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+-Final data is subsetted to a 10299 x 66 data frame
+
+3. Add in activity_labels.txt and applies descriptive activity names to name the activities in the data set:
+
+-walking
+-walkingupstairs
+-walkingdownstairs
+-sitting
+-standing
+-laying
+
+4. Clean up and label the data set appropriately
+The labels after cleaning are seen in the 'colNames' as seen below.
+colNames
+ [1] "activity_Id"                     "subject_Id"                     
+ [3] "timeBodyAccMagnitudeMean"        "timeBodyAccMagnitudeStdDev"     
+ [5] "timeGravityAccMagnitudeMean"     "timeGravityAccMagnitudeStdDev"  
+ [7] "timeBodyAccJerkMagnitudeMean"    "timeBodyAccJerkMagnitudeStdDev" 
+ [9] "timeBodyGyroMagnitudeMean"       "timeBodyGyroMagnitudeStdDev"    
+[11] "timeBodyGyroJerkMagnitudeMean"   "timeBodyGyroJerkMagnitudeStdDev"
+[13] "freqBodyAccMagnitudeMean"        "freqBodyAccMagnitudeStdDev"     
+[15] "freqBodyAccJerkMagnitudeMean"    "freqBodyAccJerkMagnitudeStdDev" 
+[17] "freqBodyGyroMagnitudeMean"       "freqBodyGyroMagnitudeStdDev"    
+[19] "freqBodyGyroJerkMagnitudeMean"   "freqBodyGyroJerkMagnitudeStdDev"
+[21] "activity_Type" 
+
+5. Finally, the script creates a 2nd, independent tidy data set with the average of each measurement for each activity and each subject.
+The resulting output is a 180x21 data frame and it is saved as tidyData.txt.
